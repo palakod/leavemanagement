@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+
+        <form role="form", method="POST">
+            <h2>My Profile</h2>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <h3>Name : {{user.first_name}} {{user.last_name}}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>User ID : {{user.username}}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>Email : {{user.email}}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h3>
+                                {% if perms.lrequests.change_leave%}
+                                Check if you need to approve any leaves, <a href="http://127.0.0.1:8000/admin/lrequests/leave/">here</a>
+                                {% else %}
+                                
+                                {% endif %}
+                                
+                            </h3>
+                        </td>
+                    </tr>
+                </table>
+        </form>
+
+    </div>
+
+{% endblock content %}

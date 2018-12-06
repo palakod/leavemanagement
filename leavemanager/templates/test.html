@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h1>
+    {% if user.is_authenticated %}
+    {% if user.is_superuser %}
+    Welcome !!
+    Head to the admin page, <a href="http://127.0.0.1:8000/admin/">here</a>
+    {% else %}
+    <p>Welcome, {{ user.first_name }} {{ user.last_name }}. Thanks for logging in.</p>
+    <h2><a href="{% url 'lrequests:request' %}">Make a request!</a></h2>
+    {% endif %}
+    
+    {% else %}
+    <p>Welcome, new user. Please log in.</p>
+
+    {% endif %}
+  </h1>
+  
+  
+  {% comment %} <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+  <h2>Your left over leaves:</h2>
+  <h3>
+    <ul>
+      <li>Earned Leave : 05</li><p></p>
+      <li>Casual Leave : 06</li><p></p>
+      <li>Sick Leave   : 12</li><p></p>
+      <li>Paid Leave   : 08</li><p></p>
+    </ul>
+</h3>  {% endcomment %}
+</div>
+
+
+
+
+{% endblock %}

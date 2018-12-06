@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = 'container'>
+  <h2> Office Holidays </h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope ="col">Month</th>
+        <th scope="col">Day</th>
+        <th scope ="col">Occasion</th>
+      </tr>
+    </thead>
+    {% for x in holidays  %}
+    <tr>
+        <th scope="row">{{x.date|date:"d"}}</th>
+        <td>{{x.date|date:"F"}}</td>
+        <td>{{x.date|date:"l"}}</td>
+        <td>{{x.occasion}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}

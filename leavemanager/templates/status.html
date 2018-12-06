@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h3>{{user.first_name}} {{user.last_name}}'s Leave activity : </h3> <br>
+    <table class = 'table'>
+        <tr>
+            <th>ID</th>
+            <th>Date Applied</th>
+            <th>Accepted On</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>Number of Days</th>
+            <th>Type of Leave</th>
+            
+        </tr>
+        <tr>
+                {% for x in data %}
+                    {% if x.status == '1' %}
+                    <tr>
+                        <th scope = 'row'>  {{x.id}}  </th>
+                        <td>  {{x.created}}  </td>
+                        <td>  {{x.last_modified}}  </td>
+                        <td>  {{x.from_date}}  </td>
+                        <td>  {{x.to_date}}  </td>
+                        <td>  {{x.date_diff}}  </td>
+                        <td>  {{x.type_of_leave}}  </td>
+                    {% else %}
+                    {% endif %} 
+                </tr>                      
+                {% endfor %}
+    
+        </tr>
+    </table>
+    <br>
+<h3>{{user.first_name}} {{user.last_name}}'s Leave Eligibility</h3>
+    <table class = 'table'>
+        <tr>
+            <th>Earned Leave's left</th>
+            <th>Casual Leave's left</th>
+            <th>Sick Leave's left</th>
+            <th>Paid Leave's left</th>
+        </tr>
+        <tr>
+            {% for y in count  %}
+            <td>{{y.earned_leave}}</td>
+            <td>{{y.casual_leave}}</td>
+            <td>{{y.sick_leave}}</td>
+            <td>{{y.paid_leave}}</td>
+            
+            {% endfor %}
+        </tr>
+</table>
+{% endblock content %}

@@ -1,0 +1,103 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leave Manager</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js">
+    </script>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+    <!-- Script -->
+    <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+    <script>
+
+    $(document).ready(function() {
+        $('.datepicker').datepicker(
+          {
+            minDate : 0,
+            beforeShowDay : $.datepicker.noWeekends
+          }
+        );
+    });
+    
+    </script>
+    {% comment %} <script>
+      var array = [
+    {% for x in holidays %}
+        {{x.dates}}
+    {% endfor  %} 
+]
+
+$('datepicker').datepicker({
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        return array.indexOf(string) != -1 ? [false] : $.datepicker.noWeekends(date);
+    }
+});
+    </script> {% endcomment %}
+
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'leavemanager/css/master.css'%}">
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  </head>
+
+
+  <body>
+
+        <nav class="navbar  mynav" role="navigation" id="navbar">
+    			<div class="container">
+            <a class="navbar-brand mynav"> LEAVE-MANAGER.com </a>
+            
+    					<ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                      <li><a class="btn btn-simple" href="{% url 'home' %}">Home</a></li>
+                      {% if user.is_superuser %}
+                      <li><a href="{% url 'accounts:logout' %}" class="btn btn-simple">Log out</a></li>
+                      {% elif user.is_staff%}
+                      <li><a href="{% url 'calendar' %}" class="btn btn-simple">Holiday Calendar</a></li>
+                      <li><a href="{% url 'accounts:profile' %}" class="btn btn-simple">Profile</a></li>
+                      <li><a href="{% url 'accounts:logout' %}" class="btn btn-simple">Log out</a></li>
+                      {% else %}
+                      <li><a href="{% url 'lrequests:status' %}" class="btn btn-simple">Activity</a></li>
+                      <li><a href="{% url 'lrequests:request' %}"class="btn btn-simple">Make a request</a></li>
+                      <li><a href="{% url 'lrequests:calendar' %}" class="btn btn-simple">Holiday Calendar</a></li>
+                      <li><a href="{% url 'accounts:profile' %}" class="btn btn-simple">Profile</a></li>
+                      <li><a href="{% url 'accounts:logout' %}" class="btn btn-simple">Log out</a></li>
+                      
+
+                      {% endif %}
+                      
+
+                {% else %}
+                      <li><a class="btn btn-simple" href="{% url 'home' %}">Home</a></li>
+    						      <li><a href="{% url 'accounts:login' %}" class="btn btn-simple">Log in</a></li>
+    						      {% comment %} <li><a href="{% url 'accounts:signup' %}" class="btn btn-simple">Sign up</a></li> {% endcomment %}
+    						{% endif %}
+    					</ul>
+    			</div>
+        </nav>
+        
+        <div class="container mycontent">
+          {% block content %}
+
+          {% endblock %}
+
+        </div>
+  </body>
+  
+  <script src="{% static "leavemanager/js/master.js"%}" type="text/javascript" ></script>
+</html>
